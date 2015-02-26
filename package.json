@@ -1,0 +1,42 @@
+{
+  "name": "tiles-canvas",
+  "version": "0.0.1",
+  "description": "drawing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lsdafjklsd/tiles-canvas.git"
+  },
+  "keywords": [
+    "react",
+    "canvas",
+    "drawing",
+    "immutable"
+  ],
+  "author": "Ryan Haywood <ryan@redowlanalytics.com> (http://www.redowlanalytics.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsdafjklsd/tiles-canvas/issues"
+  },
+  "homepage": "https://github.com/lsdafjklsd/tiles-canvas",
+  "devDependencies": {
+    "cjsx-loader": "1.2.0",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.9.0",
+    "gulp": "^3.8.10",
+    "gulp-clean": "^0.3.1",
+    "gulp-connect": "^2.2.0",
+    "gulp-webpack": "^1.2.0",
+    "immutable": "^3.6.2",
+    "react": "^0.13.0-beta.1",
+    "react-canvas": "git://github.com/Flipboard/react-canvas",
+    "react-immutable-render-mixin": "^0.8.0",
+    "webpack": "^1.5.3"
+  },
+  "peerDependencies": {
+    "react": "^0.13.0-beta.1"
+  }
+}
