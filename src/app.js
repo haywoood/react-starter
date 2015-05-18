@@ -22,7 +22,7 @@ let App = React.createClass({
     let showSubhead = this.props.data.get('showSubhead');
 
     if (showSubhead) {
-      var subhead = <h2>I'm the subhead</h2>;
+      var subhead = <h2>I"m the subhead</h2>;
     }
 
     let toggleSubhead = this.actionHandler.bind(null, 'toggleSubhead');
@@ -49,9 +49,10 @@ let State = Immutable.Map({
 });
 
 let actionHandler = function(actionsMap, renderFn, mountNode) {
-  return (state, fnName, ...args) =>
+  return (state, fnName, ...args) => {
     let newState = actionsMap[fnName].apply(null, [state].concat(args));
-    return renderFn(mountNode, newState);
+    renderFn(mountNode, newState);
+  }
 }
 
 let render = function(mountNode, state) {
