@@ -15,12 +15,11 @@ module.exports = {
     modulesDirectories: ['node_modules']
   },
   resolve: {
-    extensions: ['', '.js', '.cjsx', '.coffee']
+    extensions: ['', '.js']
   },
   module: {
     loaders: [
-      { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
-      { test: /\.coffee$/, loader: 'coffee' }
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
     ]
   }
 };
