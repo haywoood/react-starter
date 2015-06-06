@@ -3,6 +3,7 @@ React starter
 
 All my favorite libs, my project base
 
+- Immutable.js
 - React.js
 - React canvas
 - CSSNext
