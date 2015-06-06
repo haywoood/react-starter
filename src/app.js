@@ -2,7 +2,9 @@ import React from 'react';
 import Immutable from 'immutable';
 import ImmutableRenderMixin from 'react-immutable-render-mixin';
 
-let Actions = {
+import './styles/app.css';
+
+const Actions = {
   toggleSubhead(state) {
     let curVal = state.get('showSubhead');
     let newState = state.set('showSubhead', !curVal);
@@ -10,7 +12,7 @@ let Actions = {
   }
 }
 
-let App = React.createClass({
+const App = React.createClass({
   mixins: [ImmutableRenderMixin],
 
   actionHandler(...args) {
@@ -22,7 +24,7 @@ let App = React.createClass({
     let showSubhead = this.props.data.get('showSubhead');
 
     if (showSubhead) {
-      var subhead = <h2>I"m the subhead</h2>;
+      var subhead = <h2>I'm the subhead</h2>;
     }
 
     let toggleSubhead = this.actionHandler.bind(null, 'toggleSubhead');
@@ -42,24 +44,24 @@ let App = React.createClass({
   }
 });
 
-let State = Immutable.Map({
+const State = Immutable.Map({
   message: null,
   actionHandler: null,
   showSubhead: false
 });
 
-let actionHandler = function(actionsMap, renderFn, mountNode) {
+const actionHandler = function(actionsMap, renderFn, mountNode) {
   return (state, fnName, ...args) => {
     let newState = actionsMap[fnName].apply(null, [state].concat(args));
     renderFn(mountNode, newState);
   }
 }
 
-let render = function(mountNode, state) {
+const render = function(mountNode, state) {
   return React.render(<App data={state} />, mountNode);
 }
 
-let mountNode = document.getElementsByTagName('body')[0]
+const mountNode = document.getElementsByTagName('body')[0]
 
 let state = State.merge({
   message: "Hello World!",
