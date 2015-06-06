@@ -1,27 +1,24 @@
 {
-  "name": "tiles-canvas",
+  "name": "App name",
   "version": "0.0.1",
-  "description": "drawing",
+  "description": "App description",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lsdafjklsd/tiles-canvas.git"
+    "url": "https://github.com/my-name/repo-name.git"
   },
   "keywords": [
-    "react",
-    "canvas",
-    "drawing",
-    "immutable"
+    "global warming?"
   ],
-  "author": "Ryan Haywood <ryan@redowlanalytics.com> (http://www.redowlanalytics.com/)",
+  "author": "Your name",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lsdafjklsd/tiles-canvas/issues"
+    "url": "https://github.com/my-name/repo-name/issues"
   },
-  "homepage": "https://github.com/lsdafjklsd/tiles-canvas",
+  "homepage": "https://github.com/my-name/repo-name",
   "devDependencies": {
     "babel-core": "^5.4.3",
     "babel-loader": "^5.1.2",
