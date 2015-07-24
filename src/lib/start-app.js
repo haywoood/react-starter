@@ -3,20 +3,20 @@ import csp from 'js-csp';
 
 
 function startApp(app, mountNode) {
-  let { model, view, update } = app
-    , actionChan = csp.chan()
+  var { model, view, update } = app;
+  var actionChan = csp.chan()
     , mountNode  = mountNode || document.getElementsByTagName('body')[0];
 
-  let actionHandler = function(args) {
+  var actionHandler = function(args) {
     csp.putAsync(actionChan, args);
   }
 
-  let modelChan = foldp(update, model, actionChan)
+  var modelChan = foldp(update, model, actionChan)
     , renderFn  = render(view, actionHandler, mountNode);
 
   csp.go(function*() {
     while (true) {
-      let newModel = yield csp.take(modelChan);
+      var newModel = yield csp.take(modelChan);
       renderFn(newModel);
     }
   });
@@ -26,10 +26,9 @@ function startApp(app, mountNode) {
 
 
 function render(view, actionHandler, mountNode) {
-  let View = view;
   return function(state) {
     return React.render(
-      <View model={state} actionHandler={actionHandler} />,
+      React.createElement(view, { model: state, actionHandler: actionHandler}),
       mountNode
     );
   }
@@ -37,12 +36,12 @@ function render(view, actionHandler, mountNode) {
 
 
 function foldp(update, model, chan) {
-  let _model  = model
+  var _model  = model
     , outChan = csp.chan();
 
   csp.go(function*() {
     while (true) {
-      let _args      = yield csp.take(chan)
+      var _args      = yield csp.take(chan)
         , action     = _args[0]
         , args       = _args.slice(1)
         , updateArgs = [action, _model].concat(args);
