@@ -1,10 +1,11 @@
 import React from 'react';
 import Immutable from 'immutable';
 import ImmutableRenderMixin from 'react-immutable-render-mixin';
+import StartApp from './lib/start-app';
 
 import './styles/app.css';
 
-const Actions = {
+var Actions = {
   toggleSubhead(state) {
     let curVal = state.get('showSubhead');
     let newState = state.set('showSubhead', !curVal);
@@ -12,22 +13,23 @@ const Actions = {
   }
 }
 
-const App = React.createClass({
+var update = function (action, ...args) {
+  return Actions[action].apply(null, args)
+}
+
+var App = React.createClass({
   mixins: [ImmutableRenderMixin],
 
-  actionHandler(...args) {
-    this.props.data.get('actionHandler').apply(null, [this.props.data].concat(args));
-  },
-
   render() {
-    let message = this.props.data.get('message');
-    let showSubhead = this.props.data.get('showSubhead');
+    let message = this.props.model.get('message');
+    let showSubhead = this.props.model.get('showSubhead');
 
     if (showSubhead) {
       var subhead = <h2>I'm the subhead</h2>;
     }
 
-    let toggleSubhead = this.actionHandler.bind(null, 'toggleSubhead');
+    let toggleSubhead = this.props.actionHandler.bind(null, ['toggleSubhead']);
+
     if (showSubhead) {
       var button = <button onClick={toggleSubhead}>hide subhead</button>;
     } else {
@@ -44,28 +46,13 @@ const App = React.createClass({
   }
 });
 
-const State = Immutable.Map({
+var State = Immutable.Map({
   message: null,
-  actionHandler: null,
   showSubhead: false
 });
 
-const actionHandler = function(actionsMap, renderFn, mountNode) {
-  return (state, fnName, ...args) => {
-    let newState = actionsMap[fnName].apply(null, [state].concat(args));
-    renderFn(mountNode, newState);
-  }
-}
-
-const render = function(mountNode, state) {
-  return React.render(<App data={state} />, mountNode);
-}
-
-const mountNode = document.getElementsByTagName('body')[0]
-
-let state = State.merge({
-  message: "Hello World!",
-  actionHandler: actionHandler(Actions, render, mountNode)
+var state = State.merge({
+  message: "Hello World!"
 });
 
-render(mountNode, state);
+StartApp({ model: state, view: App, update: update });
