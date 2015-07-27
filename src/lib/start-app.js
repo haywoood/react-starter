@@ -7,17 +7,18 @@ function startApp(app, mountNode) {
   var actionChan = csp.chan()
     , mountNode  = mountNode || document.getElementsByTagName('body')[0];
 
-  var actionHandler = function(args) {
-    csp.putAsync(actionChan, args);
+  var actionHandler = function(...args) {
+    csp.putAsync.apply(null, [actionChan, args]);
   }
 
   var modelChan = foldp(update, model, actionChan)
     , renderFn  = render(view, actionHandler, mountNode);
 
   csp.go(function*() {
-    while (true) {
-      var newModel = yield csp.take(modelChan);
+    var newModel = yield csp.take(modelChan);
+    while (newModel !== csp.CLOSED) {
       renderFn(newModel);
+      newModel = yield csp.take(modelChan);
     }
   });
 
@@ -40,13 +41,11 @@ function foldp(update, model, chan) {
     , outChan = csp.chan();
 
   csp.go(function*() {
-    while (true) {
-      var _args      = yield csp.take(chan)
-        , action     = _args[0]
-        , args       = _args.slice(1)
-        , updateArgs = [action, _model].concat(args);
-      _model = update.apply(null, updateArgs);
+    var args = yield csp.take(chan);
+    while (args !== csp.CLOSED) {
+      _model = update.apply(null, [_model].concat(args));
       yield csp.put(outChan, _model);
+      args = yield csp.take(chan);
     }
   });
 

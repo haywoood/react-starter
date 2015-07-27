@@ -37,7 +37,6 @@
   "dependencies": {
     "immutable": "^3.6.2",
     "react": "^0.13.2",
-    "react-canvas": "git://github.com/Flipboard/react-canvas",
     "react-immutable-render-mixin": "^0.8.0",
     "js-csp": "^0.4.1"
   }
